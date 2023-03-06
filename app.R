@@ -1,6 +1,8 @@
-
 library(shiny)
+library(tidyverse)
+library(plotly)
 
+health <- read.csv("student-mental-health.csv")
 
 ui <- fluidPage(
 
