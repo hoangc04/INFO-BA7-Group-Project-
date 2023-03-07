@@ -29,9 +29,11 @@ ui <- fluidPage(
                    university students, they will be our main audience to address. However, the findings 
                    from this report can also apply to other audiences in current academic situations.\n")),
         
-        tabPanel("Plot"),
+        tabPanel("Page #1"),
         
-        tabPanel("Table")
+        tabPanel("Page #2"),
+        
+        tabPanel("Page #3")
         
       )
     )
