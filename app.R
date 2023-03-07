@@ -29,7 +29,20 @@ ui <- fluidPage(
                    university students, they will be our main audience to address. However, the findings 
                    from this report can also apply to other audiences in current academic situations.\n")),
         
-        tabPanel("Page #1"),
+        tabPanel("Page #1",
+                 headerPanel("Sample Observations"),
+                 p("Use the slider to observe samples of observations from the data set."),
+                 sidebarLayout(
+                   sidebarPanel(
+                     sliderInput("n", "Number of Observations:",
+                                 min = 5,
+                                 max = 100,
+                                 value = 10)
+                   ),
+                   mainPanel(
+                     tableOutput("table1")
+                   )
+                 )),
         
         tabPanel("Page #2"),
         
@@ -43,9 +56,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  output$sample <- renderTable({
+  output$table1 <- renderTable({
     health %>% 
-      sample_n(5)
+      sample_n(input$n)
   })
   
 }
