@@ -53,9 +53,35 @@ ui <- fluidPage(
                    )
                  )),
         
-        tabPanel("Page #2"),
+        tabPanel("Filtered Observations",
+                 sidebarLayout(
+                   sidebarPanel(
+                     tabsetPanel(
+                       tabPanel("Gender",
+                                selectInput(inputId = "gender", label = "Choose your gender:",
+                                            choices = c("Female", "Male"), selected = "Female")),
+                       tabPanel("Anxiety and Year of Study",
+                                selectInput(inputId = "anxiety", label = "Do you have Anxiety?",
+                                            choices = c("Yes", "No")),
+                                selectInput(inputId = "year", label = "What is your current year of study?",
+                                            choices = c("Year 1", "Year 2", "Year 3", "Year 4", "Year 5+"),
+                                            selected = "Year 1")),
+                       tabPanel("Treatment",
+                                selectInput(inputId = "treatment", label = "Did you seek any specialist for treatment?",
+                                            choices = c("Yes", "No")))
+                     )
+                   ),
+                   mainPanel(
+                     tabsetPanel(
+                       tabPanel("Data", tableOutput(outputId = "table")),
+                       tabPanel("Summary", verbatimTextOutput(outputId = "summary"))
+                     )
+                   )
+                 )),
         
-        tabPanel("Page #3")
+        tabPanel("Page #3"),
+        
+        tabPanel("Conclusion")
         
       )
     )
@@ -75,6 +101,36 @@ server <- function(input, output) {
          width = "100%",
          height = 250)
   }, deleteFile = F)
+  
+  subset_data <- reactive({
+    data_subset <- health
+    
+    if (!is.null(input$gender) & input$gender != "All") {
+      data_subset <- subset(data_subset, Choose.your.gender == input$gender)
+    }
+    
+    if (!is.null(input$anxiety) & input$anxiety != "All") {
+      data_subset <- subset(data_subset, Do.you.have.Anxiety. == input$anxiety)
+    }
+    
+    if (!is.null(input$year) & input$year != "All") {
+      data_subset <- subset(data_subset, Your.current.year.of.Study == input$year)
+    }
+    
+    if (!is.null(input$treatment) & input$treatment != "All") {
+      data_subset <- subset(data_subset, Did.you.seek.any.specialist.for.a.treatment. == input$treatment)
+    }
+    
+    return(data_subset)
+  })
+  
+  output$table <- renderTable({
+    subset_data()
+  })
+  
+  output$summary <- renderPrint({
+    summary(subset_data())
+  })
   
 }
 
