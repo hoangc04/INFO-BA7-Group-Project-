@@ -31,7 +31,7 @@ ui <- fluidPage(
                  p("\nThe purpose of examining this data set is to find an association between academic 
                    situation and state of mental health. As the data has been collected from 
                    university students, they will be our main audience to address. However, the findings 
-                   from this report can also apply to other audiences in current academic situations.\n")),
+                   from this report can also apply to other audiences in similar academic situations.\n")),
         
         tabPanel("Variables",
                  headerPanel("Sample Observations"),
@@ -41,7 +41,7 @@ ui <- fluidPage(
                      sliderInput("n", "Number of Observations:",
                                  min = 5,
                                  max = 100,
-                                 value = 10),
+                                 value = 20),
                      hr(),
                      p("\nThis data set includes 10 recorded variables. All responses and 
                        observations from participants include the following variables: gender, 
@@ -56,7 +56,8 @@ ui <- fluidPage(
         
         tabPanel("Filtered Observations",
                  sidebarLayout(
-                   sidebarPanel(p("Use the following functions to filter observations based on specified answers."), hr(),
+                   sidebarPanel(p("Use the following functions to filter observations based on specified answers."), 
+                                hr(),
                      tabsetPanel(
                        tabPanel("Gender",
                                 selectInput(inputId = "gender", label = "Choose your gender:",
@@ -80,9 +81,34 @@ ui <- fluidPage(
                    )
                  )),
         
-        tabPanel("Page #3"),
+        tabPanel("CGPA & Anxiety",
+                 plotlyOutput("plot"),
+                 hr(),br(),
+                 p("The stacked bar graph measures the amount of observations that have answered 
+                   'Yes' or 'No' to having anxiety as a measure of mental health and 
+                   their current CGPA. Few observations lie in the lower values of CGPA, but 
+                   the ones that do appear contain observations with 'No' answered for anxiety."),
+                 br(),
+                 p("The majority of observations, regardless of how they answered to 
+                   the question about anxiety, lie in CGPA values of 3.00-3.50 or 3.50-4.00. 
+                   Within these two bars, it is observed that the count of observation that have 
+                   answered 'Yes' to having anxiety total more than those that have answered 'No'.")),
         
-        tabPanel("Conclusion")
+        tabPanel("Conclusion",
+                 br(),
+                 p("We have decided to base the results of our study on the relations between variables, 
+                   and more specifically, the associations between certain demographics and mental health. 
+                   In the observations that we examined, we focused on gender, current year of study, anxiety, 
+                   and treatment. Anxiety was our primary focus to generalize mental health among the 
+                   participants."),
+                 br(),
+                 p("Our conclusions primarily draw from the stacked bar graph constructed. 
+                   It measures the count of observations based on answers to anxiety and CGPA. 
+                   The graph shows that a higher population of students who have higher CGPAs have 
+                   anxiety. This suggests that having anxiety, or in general poor mental health, 
+                   is associated with a higher CGPA or academic situation. By this conclusion, we 
+                   assume that university students have poor mental health as a result of the 
+                   efforts of their successful academic situations."))
         
       )
     )
@@ -99,7 +125,7 @@ server <- function(input, output) {
   
   output$img <- renderImage({
     list(src = "imgs/dataset-cover.jpg",
-         width = "100%",
+         width = "75%",
          height = 250)
   }, deleteFile = F)
   
@@ -131,6 +157,17 @@ server <- function(input, output) {
   
   output$summary <- renderPrint({
     summary(subset_data())
+  })
+  
+  output$plot <- renderPlotly({
+    health %>% 
+      group_by(What.is.your.CGPA.) %>% 
+      ggplot(aes(x = What.is.your.CGPA., y = Do.you.have.Anxiety., fill = factor(Do.you.have.Anxiety.))) +
+      geom_col() +
+      labs(title = "CGPA based on Anxiety for University Students",
+           x = "Current Grade Point Average (CGPA)",
+           y = "Count",
+           fill = "Anxiety?")
   })
   
 }
