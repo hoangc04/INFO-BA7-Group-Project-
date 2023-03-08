@@ -12,6 +12,10 @@ ui <- fluidPage(
       tabsetPanel(
         tabPanel("Overview",
                  headerPanel("General Overview"),
+                 imageOutput("img"),
+                 tags$blockquote("Data set: 'Student Mental Health' created by MD Shariful Islam; 
+                                 extracted from Kaggle."),
+                 hr(),
                  p("\nThis app describes the results of data collected from a survey conducted to 
                    examine academic variables in comparison to topics of mental health. The 
                    public dataset is titled 'Student Mental Health', and is defined as a 
@@ -29,7 +33,7 @@ ui <- fluidPage(
                    university students, they will be our main audience to address. However, the findings 
                    from this report can also apply to other audiences in current academic situations.\n")),
         
-        tabPanel("Page #1",
+        tabPanel("Variables",
                  headerPanel("Sample Observations"),
                  p("Use the slider to observe samples of observations from the data set."),
                  sidebarLayout(
@@ -37,7 +41,12 @@ ui <- fluidPage(
                      sliderInput("n", "Number of Observations:",
                                  min = 5,
                                  max = 100,
-                                 value = 10)
+                                 value = 10),
+                     p("\nThis data set includes 10 recorded variables. All responses and 
+                       observations from participants include the following variables: gender, 
+                       age, course, current year of study, CGPA, marital status, and answers to 
+                       mental heatlh focused topics including depression, anxiety, panic attacks, 
+                       and treatment.")
                    ),
                    mainPanel(
                      tableOutput("table1")
@@ -60,6 +69,12 @@ server <- function(input, output) {
     health %>% 
       sample_n(input$n)
   })
+  
+  output$img <- renderImage({
+    list(src = "imgs/dataset-cover.jpg",
+         width = "100%",
+         height = 250)
+  }, deleteFile = F)
   
 }
 
