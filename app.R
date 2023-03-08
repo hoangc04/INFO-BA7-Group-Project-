@@ -42,6 +42,7 @@ ui <- fluidPage(
                                  min = 5,
                                  max = 100,
                                  value = 10),
+                     hr(),
                      p("\nThis data set includes 10 recorded variables. All responses and 
                        observations from participants include the following variables: gender, 
                        age, course, current year of study, CGPA, marital status, and answers to 
@@ -55,7 +56,7 @@ ui <- fluidPage(
         
         tabPanel("Filtered Observations",
                  sidebarLayout(
-                   sidebarPanel(
+                   sidebarPanel(p("Use the following functions to filter observations based on specified answers."), hr(),
                      tabsetPanel(
                        tabPanel("Gender",
                                 selectInput(inputId = "gender", label = "Choose your gender:",
