@@ -23,7 +23,7 @@ ui <- fluidPage(
                  headerPanel("Data"),
                  p("\nAs explained, we are working with a public data set published on Kaggle. 
                    data set contains 101 observations, and 11 variables, 9 variables of which are
-                    relevant to out analysis and will be addressing. Variables will include demographics,
+                    relevant to our analysis and will be addressing. Variables will include demographics,
                      academic situation, and several mental health topics. These observations were 
                      collected in 2020, conducted as an online survey primarily and solely catered
                      towards university students.\n"),
@@ -34,14 +34,11 @@ ui <- fluidPage(
                    from this report can also apply to other audiences in similar academic situations.\n")),
         
         tabPanel("Variables",
-                 headerPanel("Sample Observations"),
-                 p("Use the slider to observe samples of observations from the data set."),
+                 p("Choose which variables to display to compare observations."),
                  sidebarLayout(
                    sidebarPanel(
-                     sliderInput("n", "Number of Observations:",
-                                 min = 5,
-                                 max = 100,
-                                 value = 20),
+                     checkboxGroupInput("variables", "Select variables to display:",
+                                        choices = colnames(health)),
                      hr(),
                      p("\nThis data set includes 10 recorded variables. All responses and 
                        observations from participants include the following variables: gender, 
@@ -50,7 +47,7 @@ ui <- fluidPage(
                        and treatment.")
                    ),
                    mainPanel(
-                     tableOutput("table1")
+                     tableOutput(outputId = "checktable")
                    )
                  )),
         
@@ -117,10 +114,9 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
-  
-  output$table1 <- renderTable({
-    health %>% 
-      sample_n(input$n)
+
+  output$checktable <- renderTable({
+    health[, unlist(input$variables), drop = FALSE]
   })
   
   output$img <- renderImage({
