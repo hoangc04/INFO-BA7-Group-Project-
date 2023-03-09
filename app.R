@@ -33,7 +33,7 @@ ui <- fluidPage(
                    university students, they will be our main audience to address. However, the findings 
                    from this report can also apply to other audiences in similar academic situations.\n"),
                  headerPanel("Contributors"),
-                 p("Cassie Hoang, Daniel Villasenor, Xiangguang Zhou")),
+                 p("Cassie Hoang, Daniel Villasenor, Xiangguang Zhou, Denali Lindeke")),
         
         tabPanel("Variables",
                  p("Choose which variables to display to compare observations."),
