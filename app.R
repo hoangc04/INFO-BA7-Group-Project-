@@ -55,7 +55,8 @@ ui <- fluidPage(
         
         tabPanel("Filtered Observations",
                  sidebarLayout(
-                   sidebarPanel(p("Use the following functions to filter observations based on specified answers."), 
+                   sidebarPanel(p("Use the following functions to filter observations based on specified answers. 
+                                  This page focuses on addressing anxiety as a general statement of mental health."), 
                                 hr(),
                      tabsetPanel(
                        tabPanel("Gender",
