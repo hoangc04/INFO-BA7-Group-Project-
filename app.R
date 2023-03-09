@@ -40,7 +40,7 @@ ui <- fluidPage(
                  sidebarLayout(
                    sidebarPanel(
                      checkboxGroupInput("variables", "Select variables to display:",
-                                        choices = colnames(health)),
+                                        choices = colnames(health), selected = "What.is.your.CGPA."),
                      hr(),
                      p("\nThis data set includes 10 recorded variables. All responses and 
                        observations from participants include the following variables: gender, 
