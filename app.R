@@ -31,7 +31,9 @@ ui <- fluidPage(
                  p("\nThe purpose of examining this data set is to find an association between academic 
                    situation and state of mental health. As the data has been collected from 
                    university students, they will be our main audience to address. However, the findings 
-                   from this report can also apply to other audiences in similar academic situations.\n")),
+                   from this report can also apply to other audiences in similar academic situations.\n"),
+                 headerPanel("Contributors"),
+                 p("Cassie Hoang, Daniel Villasenor, Xiangguang Zhou")),
         
         tabPanel("Variables",
                  p("Choose which variables to display to compare observations."),
@@ -105,7 +107,20 @@ ui <- fluidPage(
                    anxiety. This suggests that having anxiety, or in general poor mental health, 
                    is associated with a higher CGPA or academic situation. By this conclusion, we 
                    assume that university students have poor mental health as a result of the 
-                   efforts of their successful academic situations."))
+                   efforts of their successful academic situations."),
+                 br(),
+                 p("When working with the data set, we found our data of reasonable quality. 
+                   The data was generated from a conducted survey, and results were produced 
+                   reasonably. The data set is not large, and only contains around 100 observations, 
+                   but we still felt that the observations were sufficient enough to lead us to our 
+                   conclusion."),
+                 br(),
+                 p("In response to our result, the solution that we provide for this problem is 
+                   for university students to better manage their time between academics and 
+                   self-care. By balancing personal life with education, success will not 
+                   come at the expense of their own well-being. By doing so, we predict that 
+                   anxiety levels will decrease, and a better relationship between academic 
+                   situation and mental health will occur."))
         
       )
     )
