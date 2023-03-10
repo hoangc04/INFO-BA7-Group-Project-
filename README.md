@@ -8,3 +8,5 @@ attacks, and treatment.
 
 This analysis examines observations containing all presented variables, but conclusions 
 focus primarily on CGPA and anxiety as a general statement of mental health.
+
+Shiny App: https://hoangc.shinyapps.io/INFO-BA7-Group-Project/
