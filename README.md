@@ -1,4 +1,4 @@
-# INFO-BA7-Group-Project
+# Mental Health Correlation with CGPA
 
 The data set observed is a result of a statistical
 research on the effects of mental health on students' CGPA. Variables include demographics such 
